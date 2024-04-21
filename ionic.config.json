@@ -1,0 +1,7 @@
+{
+  "name": "binaural-beats-maker",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
