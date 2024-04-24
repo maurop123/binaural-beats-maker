@@ -21,7 +21,8 @@
                 <span class="text-sm text-slate-500">Beat Frequency: 
               </span><span class="font-bold">{{ beatFrequency}}Hz</span></div>
             <ion-range v-model="beatFrequency" max="50"></ion-range>
-            <ion-button @click="play">Play</ion-button>
+            <ion-button v-if="!isPlaying" @click="play">Play</ion-button>
+            <ion-button v-else @click="pause">Pause</ion-button>
           </ion-col>
           </ion-row>
         </ion-grid>
@@ -36,15 +37,21 @@ import { IonButton, IonContent, IonHeader, IonPage, IonRange, IonTitle, IonToolb
 import BeatPlayer from '@/BeatPlayer.ts'
 
 const beat1 = new BeatPlayer()
-const beatFrequency: Ref<number> = ref(beat1.beatFrequency)
+const beatFrequency: Ref<number> = ref(beat1.frequency.beat)
+const isPlaying: Ref<boolean> = ref(false)
 
 watch(beatFrequency, (newVal, oldVal) => {
-  beat1.changeBeatFrequency(newVal)
+  beat1.frequency.beat = newVal
 })
 
 function play() {
-  console.debug('beatFrequency', beatFrequency.value)
   beat1.play()
+  isPlaying.value = true
+}
+
+function pause() {
+  beat1.pause()
+  isPlaying.value = false
 }
 </script>
 
