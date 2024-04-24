@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true">
       <ion-toolbar>
-        <ion-title class="text-red-800">Blank</ion-title>
+        <ion-title>Blank</ion-title>
       </ion-toolbar>
     </ion-header>
 
@@ -13,16 +13,30 @@
         </ion-toolbar>
       </ion-header>
 
-      <div id="container">
-        <strong>Ready to create an app?</strong>
-        <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-      </div>
+        <!-- main -->
+        <ion-grid>
+          <ion-row>
+            <ion-col size="3">
+              <div>{{ beatFrequency}}</div>
+            <ion-range v-model="beatFrequency"></ion-range>
+            <ion-button @click="play">Play</ion-button>
+          </ion-col>
+          </ion-row>
+        </ion-grid>
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/vue';
+import { ref } from 'vue'
+    import type { Ref } from 'vue'
+import { IonButton, IonContent, IonHeader, IonPage, IonRange, IonTitle, IonToolbar } from '@ionic/vue';
+
+const beatFrequency: Ref<number> = ref(50)
+
+function play() {
+  console.debug('beatFrequency', beatFrequency.value)
+}
 </script>
 
 <style scoped>
