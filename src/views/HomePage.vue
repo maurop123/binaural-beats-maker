@@ -17,8 +17,10 @@
         <ion-grid>
           <ion-row>
             <ion-col size="3">
-              <div>{{ beatFrequency}}</div>
-            <ion-range v-model="beatFrequency"></ion-range>
+              <div class="flex justify-between">
+                <span class="text-sm text-slate-500">Beat Frequency: 
+              </span><span class="font-bold">{{ beatFrequency}}Hz</span></div>
+            <ion-range v-model="beatFrequency" max="50"></ion-range>
             <ion-button @click="play">Play</ion-button>
           </ion-col>
           </ion-row>
@@ -28,14 +30,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
     import type { Ref } from 'vue'
 import { IonButton, IonContent, IonHeader, IonPage, IonRange, IonTitle, IonToolbar } from '@ionic/vue';
+import BeatPlayer from '@/BeatPlayer.ts'
 
-const beatFrequency: Ref<number> = ref(50)
+const beat1 = new BeatPlayer()
+const beatFrequency: Ref<number> = ref(beat1.beatFrequency)
+
+watch(beatFrequency, (newVal, oldVal) => {
+  beat1.changeBeatFrequency(newVal)
+})
 
 function play() {
   console.debug('beatFrequency', beatFrequency.value)
+  beat1.play()
 }
 </script>
 
