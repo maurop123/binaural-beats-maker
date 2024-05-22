@@ -20,8 +20,9 @@ export default class BeatPlayer {
         return vm.osc1.frequency.value
       },
       set base(val) {
+        const beatFreq = this.beat
         vm.osc1.frequency.value = val
-        vm.osc2.frequency.value = val - this.beat
+        vm.osc2.frequency.value = val - beatFreq
       },
       get beat() {
         return vm.osc1.frequency.value - vm.osc2.frequency.value

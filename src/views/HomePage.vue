@@ -22,6 +22,11 @@
               ><span class="font-bold">{{ beatFrequency }}Hz</span>
             </div>
             <ion-range v-model="beatFrequency" max="50"></ion-range>
+            <div class="flex justify-between">
+              <span class="text-sm text-slate-500">Base Frequency: </span
+              ><span class="font-bold">{{ baseFrequency }}Hz</span>
+            </div>
+            <ion-range v-model="baseFrequency" min="200 " max="1100"></ion-range>
             <ion-button v-if="!isPlaying" @click="play">Play</ion-button>
             <ion-button v-else @click="pause">Pause</ion-button>
           </ion-col>
@@ -47,10 +52,15 @@
 
   const beat1 = new BeatPlayer()
   const beatFrequency: Ref<number> = ref(beat1.frequency.beat)
+  const baseFrequency: Ref<number> = ref(beat1.frequency.base)
   const isPlaying: Ref<boolean> = ref(false)
 
   watch(beatFrequency, (newVal, oldVal) => {
     beat1.frequency.beat = newVal
+  })
+
+  watch(baseFrequency, (newVal, oldVal) => {
+    beat1.frequency.base = newVal
   })
 
   function play() {
